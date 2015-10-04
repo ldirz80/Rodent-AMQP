@@ -3,17 +3,19 @@
  */
 package net.sleepymouse.amqp.spring;
 
-import org.springframework.boot.SpringApplication;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.*;
 
 import net.sleepymouse.amqp.SystemConstants;
 import net.sleepymouse.amqp.SystemConstants.*;
-import net.sleepymouse.amqp.spring.managers.oogManager.*;
+import net.sleepymouse.amqp.spring.managers.logManager.*;
+import net.sleepymouse.amqp.spring.services.*;
 
 /**
- * @author richard.espley
+ * @author Alan Smithee
  *
  */
 
@@ -32,10 +34,19 @@ public class ServerBoot
 		System.setProperty(SystemConstants.SYSTEM_NAME, LOG_SYSTEM.SERVER.name());
 		System.setProperty(SystemConstants.SUBSYSTEM_NAME, LOG_SUB_SYSTEM.SPRING.name());
 		//
-		ApplicationContext applicationContext = SpringApplication.run(ServerBoot.class, args);
+		ApplicationContext context = SpringApplication.run(ServerBoot.class, args);
 		//
 		// See what we created
-		ILogManager log = applicationContext.getBean(LogManager.class);
+		ILogManager log = context.getBean(LogManager.class);
 		log.logRegisteredComponents();
+		//
+		// Start the system
+		IService typeService = context.getBean(TypeService.class);
+		typeService.start();
+		typeService.stop();
+		//
+		log.info(LoggerFactory.getLogger(ServerBoot.class), "System shutting down", SystemConstants.LOG_SUB_SYSTEM.SPRING.name());
+		//
+		SpringApplication.exit(context, new ExitCodeGenerator[0]);
 	}
 }

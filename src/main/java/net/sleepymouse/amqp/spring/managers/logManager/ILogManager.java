@@ -1,4 +1,4 @@
-package net.sleepymouse.amqp.spring.managers.oogManager;
+package net.sleepymouse.amqp.spring.managers.logManager;
 
 import org.slf4j.Logger;
 
@@ -20,4 +20,16 @@ public interface ILogManager
 	 *            Subsystem name
 	 */
 	public void info(Logger logger, String msg, String subsystem);
+
+	/**
+	 * Log an error message
+	 * 
+	 * @param logger
+	 *            Logger to register
+	 * @param msg
+	 *            Logger message
+	 * @param subsystem
+	 *            Subsystem name
+	 */
+	public void error(Logger logger, String msg, String subsystem);
 }

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package net.sleepymouse.amqp.spring.managers.oogManager;
+package net.sleepymouse.amqp.spring.managers.logManager;
 
 import java.util.*;
 
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 import net.sleepymouse.amqp.SystemConstants;
 
 /**
- * @author richard.espley
+ * @author Alan Smithee
  *
  */
 @Component
@@ -50,6 +50,23 @@ public class LogManager implements ILogManager
 	{
 		MDC.put(SystemConstants.SUBSYSTEM_NAME, subsystem);
 		logger.info(msg);
+	}
+
+	/**
+	 * Log an error message
+	 * 
+	 * @param logger
+	 *            Logger to register
+	 * @param msg
+	 *            Logger message
+	 * @param subsystem
+	 *            Subsystem name
+	 */
+	@Override
+	public void error(Logger logger, String msg, String subsystem)
+	{
+		MDC.put(SystemConstants.SUBSYSTEM_NAME, subsystem);
+		logger.error(msg);
 	}
 
 	@Inject
