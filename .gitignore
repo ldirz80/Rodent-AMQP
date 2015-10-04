@@ -59,6 +59,7 @@ local.properties
 .settings/
 .loadpath
 *.log
+.springBeans
 
 
 # Eclipse Core
