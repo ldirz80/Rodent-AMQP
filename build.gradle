@@ -1,33 +1,47 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.6.RELEASE")
+    }
+}
+
 apply plugin: 'java'
 apply plugin: 'eclipse'
-apply plugin: 'application'
+apply plugin: 'idea'
+apply plugin: 'spring-boot'
 
-mainClassName = 'hello.HelloWorld'
-
-// tag::repositories[]
-repositories { 
-    mavenCentral() 
-}
-// end::repositories[]
-
-// tag::jar[]
 jar {
-    baseName = 'rodent-amwp'
-    version =  '0..0.1'
+    baseName = 'Rodent-AMWP'
+    version =  '0.0.1'
 }
-// end::jar[]
 
-// tag::dependencies[]
+repositories {
+    mavenCentral()
+}
+
+bootRepackage {
+    mainClass = 'net.sleepymouse.amqp.spring.ServerBoot'
+}
+
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 dependencies {
-    compile "joda-time:joda-time:2.2"
-}
-// end::dependencies[]
 
-// tag::wrapper[]
-task wrapper(type: Wrapper) {
-    gradleVersion = '2.3'
+    compile("org.springframework.boot:spring-boot-starter-web") {
+        exclude module: "spring-boot-starter-tomcat"
+    }
+    compile("org.springframework.boot:spring-boot-starter-jetty")
+    compile("org.springframework.boot:spring-boot-starter-actuator")
+    //
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+    testCompile("junit:junit")
+    //
+    compile('javax.inject:javax.inject:1')
 }
-// end::wrapper[]
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.9'
+}
