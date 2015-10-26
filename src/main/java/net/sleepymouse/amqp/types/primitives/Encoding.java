@@ -5,6 +5,8 @@ package net.sleepymouse.amqp.types.primitives;
 
 import javax.xml.bind.annotation.*;
 
+import net.sleepymouse.amqp.types.TypeConstants.SubcategoryFormatCodes;
+
 /**
  * @author Alan Smithee
  *
@@ -12,11 +14,13 @@ import javax.xml.bind.annotation.*;
 @XmlRootElement(name = "encoding")
 public class Encoding
 {
-	private String	name;
-	private String	label;
-	private String	code;
-	private String	category;
-	private String	width;
+	private String					name;
+	private String					label;
+	private String					code;
+	private String					category;
+	private String					width;
+	private SubcategoryFormatCodes	SubcategoryFormatCode;
+	private int						codeAsInt;
 
 	/**
 	 * @return the name
@@ -70,6 +74,8 @@ public class Encoding
 	public void setCode(String code)
 	{
 		this.code = code;
+		this.codeAsInt = Integer.parseInt(code.substring(2), 16);
+		this.SubcategoryFormatCode = SubcategoryFormatCodes.getCodeByValue(codeAsInt & 0xF0);
 	}
 
 	/**
@@ -106,6 +112,24 @@ public class Encoding
 	public void setWidth(String width)
 	{
 		this.width = width;
+	}
+
+	/**
+	 * @return the subcategoryFormatCode
+	 */
+	@XmlTransient
+	public SubcategoryFormatCodes getSubcategoryFormatCode()
+	{
+		return SubcategoryFormatCode;
+	}
+
+	/**
+	 * @return the subcategoryFormatCode
+	 */
+	@XmlTransient
+	public int getCodeAsInt()
+	{
+		return codeAsInt;
 	}
 
 }

@@ -3,6 +3,9 @@
  */
 package net.sleepymouse.amqp.types.primitives;
 
+import net.sleepymouse.amqp.types.formattypes.AMQPType;
+import net.sleepymouse.amqp.utilities.FrameFormatException;
+
 /**
  * @author Alan Smithee
  *
@@ -14,10 +17,16 @@ public interface IPrimitivesManager
 	 * 
 	 * @return True if ok, else false (Probably fatal)
 	 */
-	public boolean load();
+	boolean load();
 
 	/**
-	 * Log the loaded supported types
+	 * Decode a primitive type into a usable data structure
+	 * 
+	 * @param frameBody
+	 *            Frame data
+	 * @param offset
+	 *            Where to start decoding from
+	 * @return Decoded type data structure
 	 */
-	public void logSupportedTypes();
+	AMQPType decode(byte[] frameBody, int offset) throws FrameFormatException;
 }

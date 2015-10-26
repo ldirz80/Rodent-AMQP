@@ -43,7 +43,8 @@ public class ServerBoot
 		// Start the system
 		IService typeService = context.getBean(TypeService.class);
 		typeService.start();
-		typeService.stop();
+		INetworkService networkService = context.getBean(NetworkService.class);
+		networkService.start();
 		//
 		log.info(LoggerFactory.getLogger(ServerBoot.class), "System shutting down", SystemConstants.LOG_SUB_SYSTEM.SPRING.name());
 		//
