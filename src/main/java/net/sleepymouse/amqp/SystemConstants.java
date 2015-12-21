@@ -7,13 +7,15 @@ public class SystemConstants
 	public final static String	SYSTEM_NAME		= "SYSTEM";
 	public final static String	SUBSYSTEM_NAME	= "SUBSYSTEM";
 
-	// 
+	public final static String	EOL				= System.getProperty("line.separator");
+
+	//
 	public static enum LOG_SYSTEM
 	{
 		SERVER
 	}
-	
-	// 
+
+	//
 	public static enum LOG_SUB_SYSTEM
 	{
 		SPRING, PRIMITIVES

@@ -11,8 +11,10 @@ import org.springframework.context.annotation.*;
 
 import net.sleepymouse.amqp.SystemConstants;
 import net.sleepymouse.amqp.SystemConstants.*;
-import net.sleepymouse.amqp.spring.managers.logManager.*;
+import net.sleepymouse.amqp.spring.components.log.*;
+import net.sleepymouse.amqp.spring.components.types.TypeHandler;
 import net.sleepymouse.amqp.spring.services.*;
+import net.sleepymouse.amqp.spring.services.network.*;
 
 /**
  * @author Alan Smithee
@@ -41,7 +43,7 @@ public class ServerBoot
 		log.logRegisteredComponents();
 		//
 		// Start the system
-		IService typeService = context.getBean(TypeService.class);
+		IService typeService = context.getBean(TypeHandler.class);
 		typeService.start();
 		INetworkService networkService = context.getBean(NetworkService.class);
 		networkService.start();
