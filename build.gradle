@@ -1,9 +1,10 @@
 buildscript {
     repositories {
         mavenCentral()
+        jcenter()
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.6.RELEASE")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.3.+")
     }
 }
 
@@ -11,6 +12,7 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
+apply plugin: 'jacoco'
 
 jar {
     baseName = 'Rodent-AMWP'
@@ -25,6 +27,34 @@ bootRepackage {
     mainClass = 'net.sleepymouse.amqp.spring.ServerBoot'
 }
 
+jacoco {
+    toolVersion = "0.7.5.201505241946"
+    reportsDir = file("$buildDir/customJacocoReportDir")
+}
+
+test
+{
+	filter
+	{
+	     includeTestsMatching "net.sleepymouse.amqp.*"
+	}
+    jacoco {
+        append = false
+        destinationFile = file("$buildDir/jacoco/jacocoTest.exec")
+        classDumpFile = file("$buildDir/jacoco/classpathdumps")
+    }
+}
+
+
+jacocoTestReport {
+    reports {
+        xml.enabled false
+        csv.enabled false
+        html.destination "${buildDir}/jacocoHtml"
+    }
+}
+    
+
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
@@ -35,16 +65,20 @@ dependencies {
     }
     compile("org.springframework.boot:spring-boot-starter-jetty")
     compile("org.springframework.boot:spring-boot-starter-actuator")
-    compile("io.netty:netty-all:5.0.0.Alpha2")
-    compile("org.hibernate:hibernate-validator:5.2.2.Final")
+    compile("io.netty:netty-all:5.+")
+    compile("org.hibernate:hibernate-validator:5.2.+")
     //
     testCompile("org.springframework.boot:spring-boot-starter-test")
-    testCompile("junit:junit")
-    testCompile("org.mockito:mockito-all:2.0.2-beta")
+    testCompile("junit:junit:4.+")
+    testCompile("org.mockito:mockito-all:2.+")
     //
     compile('javax.inject:javax.inject:1')
 }
 
 task wrapper(type: Wrapper) {
     gradleVersion = '2.9'
+}
+
+task listJars << {
+    configurations.compile.each { File file -> println file.name }
 }
