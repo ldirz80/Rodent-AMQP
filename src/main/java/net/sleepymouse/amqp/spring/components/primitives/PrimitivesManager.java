@@ -56,7 +56,7 @@ public class PrimitivesManager implements IPrimitivesManager
 		{
 			e.printStackTrace();
 			logManager.error(LoggerFactory.getLogger(LogManager.class), e.getMessage(),
-					SystemConstants.LOG_SUB_SYSTEM.PRIMITIVES.name());
+					SystemConstants.LogSubSystem.PRIMITIVES);
 		}
 		return false;
 	}
@@ -253,7 +253,7 @@ public class PrimitivesManager implements IPrimitivesManager
 	private void logSupportedTypes()
 	{
 		// primitives.getTypes().stream().sorted((a, b) -> a.getName().compareTo(b.getName())).forEach(
-		// e -> logManager.info(logger, "Type: " + e.getName(), SystemConstants.LOG_SUB_SYSTEM.PRIMITIVES.name()));
+		// e -> logManager.info(logger, "Type: " + e.getName(), SystemConstants.LogSubSystem.PRIMITIVES.name()));
 	}
 
 	/**

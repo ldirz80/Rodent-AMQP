@@ -26,15 +26,14 @@ import net.sleepymouse.amqp.spring.services.network.*;
 @ComponentScan({ "net.sleepymouse.amqp" })
 public class ServerBoot
 {
-
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args)
 	{
 		// Default system / subsystem names for logging
-		System.setProperty(SystemConstants.SYSTEM_NAME, LOG_SYSTEM.SERVER.name());
-		System.setProperty(SystemConstants.SUBSYSTEM_NAME, LOG_SUB_SYSTEM.SPRING.name());
+		System.setProperty(SystemConstants.SYSTEM_NAME, LogSystem.SERVER.name());
+		System.setProperty(SystemConstants.SUBSYSTEM_NAME, LogSubSystem.SPRING.name());
 		//
 		ApplicationContext context = SpringApplication.run(ServerBoot.class, args);
 		//
@@ -48,7 +47,7 @@ public class ServerBoot
 		INetworkService networkService = context.getBean(NetworkService.class);
 		networkService.start();
 		//
-		log.info(LoggerFactory.getLogger(ServerBoot.class), "System shutting down", SystemConstants.LOG_SUB_SYSTEM.SPRING.name());
+		log.info(LoggerFactory.getLogger(ServerBoot.class), "System shutting down", SystemConstants.LogSubSystem.SPRING);
 		//
 		SpringApplication.exit(context, new ExitCodeGenerator[0]);
 	}

@@ -20,11 +20,6 @@ public class TypeConstants
 		PRIMITIVE, DESCRIBED, COMPOSITE, RESTRICTED
 	}
 
-	public static enum TypeNames
-	{
-
-	}
-
 	public static enum CategoryFormatCodes
 	{
 		FIXED, VARIABLE, COMPOUND, ARRAY

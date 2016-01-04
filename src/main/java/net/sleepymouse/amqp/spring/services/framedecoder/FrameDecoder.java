@@ -69,16 +69,16 @@ public class FrameDecoder implements IFrameDecoder
 		byte[] ignored = new byte[ignoredSize];
 		buffer = buffer.get(ignored);
 		//
-		// Get frame body
+		// Get frame body and decode the performative
 		int frameBodySize = size - 4 * doff;
 		byte[] frameBody = new byte[frameBodySize];
 		buffer = buffer.get(frameBody);
 		Performative performative = new Performative(frameBody, primitivesManager);
 		//
+		// Get the payload and decode the message
 		byte[] payload = Arrays.copyOfRange(frameBody, performative.getSize(), frameBody.length);
 		Message message = new Message(payload, primitivesManager);
 		//
-		return new Frame(size, doff, type, channel, ignored, frameBody, performative, message);
-
+		return new Frame(size, doff, type, channel, ignored, performative, message);
 	}
 }

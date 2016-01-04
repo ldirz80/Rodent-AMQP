@@ -15,7 +15,7 @@ public class EmptyAMQPType extends FixedAMQPType
 	{
 		super(encodingType);
 		setSize(1);
-		setValue(new byte[0]);
+		setRaw(new byte[0]);
 	}
 
 	/**

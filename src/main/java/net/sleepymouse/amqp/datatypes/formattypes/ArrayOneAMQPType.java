@@ -37,7 +37,7 @@ public class ArrayOneAMQPType extends ArrayAMQPType
 		if ((arrayElement instanceof FixedAMQPType) || (arrayElement instanceof VariableAMQPType))
 		{
 			int dataSize = size - 3;
-			setValue(frameBody, offset + 1, size);
+			setRaw(frameBody, offset + 1, size);
 			//
 			// Now we have first element so pull out remaining ones
 			byte[] elementBuffer = new byte[(int) dataSize + 1];

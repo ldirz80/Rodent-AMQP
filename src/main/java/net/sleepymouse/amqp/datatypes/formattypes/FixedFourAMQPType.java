@@ -16,7 +16,7 @@ public class FixedFourAMQPType extends FixedAMQPType
 	{
 		super(encodingType);
 		setSize(5);
-		setValue(frameBody, offset + 1, 4);
+		setRaw(frameBody, offset + 1, 4);
 	}
 
 	/**
@@ -26,7 +26,7 @@ public class FixedFourAMQPType extends FixedAMQPType
 	public String toValue()
 	{
 		String typeName = this.getEncodingType().getType().getTypeName();
-		byte[] raw = getValue();
+		byte[] raw = getRaw();
 		switch (typeName)
 		{
 			case "uint":

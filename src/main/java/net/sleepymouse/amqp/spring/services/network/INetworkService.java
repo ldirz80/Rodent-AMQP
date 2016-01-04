@@ -11,6 +11,6 @@ import net.sleepymouse.amqp.spring.services.IService;
  */
 public interface INetworkService extends IService
 {
-	void run() throws Exception;
+	void exec() throws Exception;
 
 }

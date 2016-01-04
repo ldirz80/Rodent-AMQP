@@ -18,7 +18,7 @@ public class VariableFourAMQPType extends VariableAMQPType
 		int varSize = NumberUtils.getInteger(frameBody, 1);
 		//
 		setSize(varSize + 5);
-		setValue(frameBody, offset + 5, varSize);
+		setRaw(frameBody, offset + 5, varSize);
 	}
 
 	/**
@@ -28,7 +28,7 @@ public class VariableFourAMQPType extends VariableAMQPType
 	public String toValue()
 	{
 		String typeName = this.getEncodingType().getType().getTypeName();
-		byte[] raw = getValue();
+		byte[] raw = getRaw();
 		switch (typeName)
 		{
 			case "binary":

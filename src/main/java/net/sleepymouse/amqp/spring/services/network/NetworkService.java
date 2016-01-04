@@ -5,13 +5,13 @@ package net.sleepymouse.amqp.spring.services.network;
 
 import javax.inject.Inject;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import net.sleepymouse.amqp.AMQPConstants;
 import net.sleepymouse.amqp.spring.components.initalconnection.IAMQPInitialConnectionHandler;
 
 /**
@@ -22,18 +22,26 @@ import net.sleepymouse.amqp.spring.components.initalconnection.IAMQPInitialConne
 public class NetworkService implements INetworkService
 {
 	@Inject
-	private IAMQPInitialConnectionHandler amqpInitialConnectionHandler;
+	private IAMQPInitialConnectionHandler	amqpInitialConnectionHandler;
+	//
+	private EventLoopGroup					bossGroup	= new NioEventLoopGroup();
+	private EventLoopGroup					workerGroup	= new NioEventLoopGroup();
+	private ChannelFuture					f;
+	//
+	@Value("${amqp.port:5000}")
+	private int								port;
 
 	/**
 	 * Tell the service to initiate itself
 	 * 
 	 * @return True if start ok, else false
 	 */
+	@Override
 	public boolean start()
 	{
 		try
 		{
-			run();
+			exec();
 			return true;
 		}
 		catch (Exception e)
@@ -42,21 +50,31 @@ public class NetworkService implements INetworkService
 		}
 	}
 
+	/**
+	 * Tell the service to shutdown
+	 * 
+	 * @return True if start ok, else false
+	 */
 	@Override
-	public void run() throws Exception
+	public boolean stop()
 	{
-		EventLoopGroup bossGroup = new NioEventLoopGroup(); // (1)
-		EventLoopGroup workerGroup = new NioEventLoopGroup();
+		f.channel().close();
+		return true;
+	}
+
+	@Override
+	public void exec() throws Exception
+	{
 		try
 		{
-			ServerBootstrap b = new ServerBootstrap(); // (2)
-			b.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class) // (3)
+			ServerBootstrap b = new ServerBootstrap();
+			b.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class)//
 					.childHandler(amqpInitialConnectionHandler) //
-					.option(ChannelOption.SO_BACKLOG, 128) // (5)
-					.childOption(ChannelOption.SO_KEEPALIVE, true); // (6)
+					.option(ChannelOption.SO_BACKLOG, 128) //
+					.childOption(ChannelOption.SO_KEEPALIVE, true);
 
 			// Bind and start to accept incoming connections.
-			ChannelFuture f = b.bind(AMQPConstants.PORT).sync(); // (7)
+			f = b.bind(port).sync();
 
 			// Wait until the server socket is closed.
 			// In this example, this does not happen, but you can do that to gracefully

@@ -10,15 +10,15 @@ public class SystemConstants
 	public final static String	EOL				= System.getProperty("line.separator");
 
 	//
-	public static enum LOG_SYSTEM
+	public static enum LogSystem
 	{
 		SERVER
 	}
 
 	//
-	public static enum LOG_SUB_SYSTEM
+	public static enum LogSubSystem
 	{
-		SPRING, PRIMITIVES
+		SPRING, PRIMITIVES, NETWORK
 	}
 
 }

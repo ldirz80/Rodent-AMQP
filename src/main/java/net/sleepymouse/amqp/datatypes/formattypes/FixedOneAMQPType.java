@@ -16,7 +16,7 @@ public class FixedOneAMQPType extends FixedAMQPType
 	{
 		super(encodingType);
 		setSize(2);
-		setValue(frameBody, offset + 1, 1);
+		setRaw(frameBody, offset + 1, 1);
 	}
 
 	/**
@@ -26,7 +26,7 @@ public class FixedOneAMQPType extends FixedAMQPType
 	public String toValue()
 	{
 		String typeName = this.getEncodingType().getType().getTypeName();
-		byte[] raw = getValue();
+		byte[] raw = getRaw();
 		switch (typeName)
 		{
 			case "ubyte":

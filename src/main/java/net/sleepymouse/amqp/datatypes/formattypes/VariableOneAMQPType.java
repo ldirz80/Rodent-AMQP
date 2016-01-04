@@ -17,7 +17,7 @@ public class VariableOneAMQPType extends VariableAMQPType
 		super(encodingType);
 		int varSize = Byte.toUnsignedInt(frameBody[offset + 1]);
 		setSize(varSize + 2);
-		setValue(frameBody, offset + 2, varSize);
+		setRaw(frameBody, offset + 2, varSize);
 
 	}
 
@@ -28,7 +28,7 @@ public class VariableOneAMQPType extends VariableAMQPType
 	public String toValue()
 	{
 		String typeName = this.getEncodingType().getType().getTypeName();
-		byte[] raw = getValue();
+		byte[] raw = getRaw();
 		switch (typeName)
 		{
 			case "binary":

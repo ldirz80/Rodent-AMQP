@@ -3,16 +3,18 @@
  */
 package net.sleepymouse.amqp.spring.services.messageprocessor;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import io.netty.channel.*;
-import net.sleepymouse.amqp.spring.services.framedecoder.FrameDecoder;
+import net.sleepymouse.amqp.spring.services.framedecoder.*;
 
 /**
  * @author Alan Smithee
  *
  */
 @Service
+@Scope("prototype")
 public class MessageProcessor extends ChannelHandlerAdapter implements IMessageProcessor, ChannelHandler
 {
 
@@ -34,7 +36,7 @@ public class MessageProcessor extends ChannelHandlerAdapter implements IMessageP
 	@Override
 	public void channelActive(final ChannelHandlerContext ctx)
 	{
-		System.out.println("MessageProcessor active");
+		ctx.fireChannelActive();
 	}
 
 	/**
@@ -46,8 +48,9 @@ public class MessageProcessor extends ChannelHandlerAdapter implements IMessageP
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg)
 	{
-		FrameDecoder frame = (FrameDecoder) msg;
+		Frame frame = (Frame) msg;
 		System.out.println("Process message");
+		System.out.println(frame);
 	}
 
 	/**

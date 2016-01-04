@@ -1,7 +1,7 @@
 /**
  * 
  */
-package net.sleepymouse.amqp.spring.components.pojo;
+package net.sleepymouse.amqp.spring.components.pojoconverter;
 
 import io.netty.channel.ChannelHandler;
 

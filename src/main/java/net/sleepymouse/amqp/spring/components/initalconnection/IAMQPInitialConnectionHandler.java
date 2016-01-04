@@ -11,5 +11,4 @@ import io.netty.channel.ChannelHandler;
  */
 public interface IAMQPInitialConnectionHandler extends ChannelHandler
 {
-
 }

@@ -185,4 +185,14 @@ public final class NumberUtils
 	{
 		return toIntExact(packBitsIntoLong(val));
 	}
+
+	public static byte[] generateByteArray(int[] data)
+	{
+		byte[] message = new byte[data.length];
+		for (int i = 0; i < data.length; i++)
+		{
+			message[i] = (byte) data[i];
+		}
+		return message;
+	}
 }

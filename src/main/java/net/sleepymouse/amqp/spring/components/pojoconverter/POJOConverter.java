@@ -1,12 +1,13 @@
 /**
  * 
  */
-package net.sleepymouse.amqp.spring.components.pojo;
+package net.sleepymouse.amqp.spring.components.pojoconverter;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import io.netty.buffer.ByteBuf;
@@ -21,6 +22,7 @@ import net.sleepymouse.amqp.spring.services.framedecoder.IFrameDecoder;
  *
  */
 @Component
+@Scope("prototype")
 public class POJOConverter extends ByteToMessageDecoder implements IPOJOConverter
 {
 	@Inject
@@ -30,6 +32,7 @@ public class POJOConverter extends ByteToMessageDecoder implements IPOJOConverte
 	 * Return {@code true} if the implementation is {@link Sharable} and so can be added to different
 	 * {@link ChannelPipeline}s.
 	 */
+	@Override
 	public boolean isSharable()
 	{
 		return false;
@@ -48,12 +51,15 @@ public class POJOConverter extends ByteToMessageDecoder implements IPOJOConverte
 	 * @throws Exception
 	 *             is thrown if an error occurs
 	 */
+	@Override
 	protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception
 	{
-		byte[] frame = new byte[in.readableBytes()];
-		in = in.readBytes(frame);
-		in.discardReadBytes();
-		out.add(frameDecoder.decode(frame));
+		if (in.readableBytes() > 0)
+		{
+			byte[] frame = new byte[in.readableBytes()];
+			in.readBytes(frame).discardReadBytes();
+			out.add(frameDecoder.decode(frame));
+		}
 	}
 
 	/**

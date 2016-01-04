@@ -15,8 +15,8 @@ public class AMQPConstants
 	public final static int	AMQP_MINOR			= 0;
 	public final static int	AMQP_REVISION		= 0;
 	//
-	public final static int	PORT				= 5000;
-	// //
+	public final static int	AMQP_PROTOCOL_ID	= 0x00;
+	//
 	public final static int	AMQP_TYPE			= 0x00;
 	public final static int	SASL_TYPE			= 0x01;
 	//

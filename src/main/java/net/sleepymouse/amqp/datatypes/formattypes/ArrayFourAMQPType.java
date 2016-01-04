@@ -53,7 +53,7 @@ public class ArrayFourAMQPType extends ArrayAMQPType
 			{
 				throw new FrameFormatException("Maximum array data size (" + Integer.MAX_VALUE + ") exceeded");
 			}
-			setValue(frameBody, offset + 1, (int) size);
+			setRaw(frameBody, offset + 1, (int) size);
 			//
 			// Now we have first element so pull out remaining ones
 			byte[] elementBuffer = new byte[(int) dataSize + 1];

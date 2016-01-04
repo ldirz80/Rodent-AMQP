@@ -41,7 +41,7 @@ public class Performative
 		}
 		//
 		// Get the domain and descriptor Id's (32 bit parts of 64 bit ulong)
-		byte[] raw = descriptor.getValue();
+		byte[] raw = descriptor.getRaw();
 		if (0 == raw.length)
 		{
 			domainId = 0;

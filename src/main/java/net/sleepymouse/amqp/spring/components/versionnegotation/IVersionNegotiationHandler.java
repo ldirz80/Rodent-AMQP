@@ -1,7 +1,7 @@
 /**
  * 
  */
-package net.sleepymouse.amqp.spring.components.versionnegotiation;
+package net.sleepymouse.amqp.spring.components.versionnegotation;
 
 import io.netty.channel.ChannelHandler;
 
@@ -11,5 +11,4 @@ import io.netty.channel.ChannelHandler;
  */
 public interface IVersionNegotiationHandler extends ChannelHandler
 {
-
 }

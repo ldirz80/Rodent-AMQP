@@ -16,7 +16,7 @@ public class FixedEightAMQPType extends FixedAMQPType
 	{
 		super(encodingType);
 		setSize(9);
-		setValue(frameBody, offset + 1, 8);
+		setRaw(frameBody, offset + 1, 8);
 	}
 
 	/**
@@ -26,7 +26,7 @@ public class FixedEightAMQPType extends FixedAMQPType
 	public String toValue()
 	{
 		String typeName = this.getEncodingType().getType().getTypeName();
-		byte[] raw = getValue();
+		byte[] raw = getRaw();
 		switch (typeName)
 		{
 			case "ulong":

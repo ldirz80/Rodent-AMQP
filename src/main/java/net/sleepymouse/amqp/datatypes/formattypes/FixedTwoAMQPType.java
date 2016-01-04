@@ -16,7 +16,7 @@ public class FixedTwoAMQPType extends FixedAMQPType
 	{
 		super(encodingType);
 		setSize(3);
-		setValue(frameBody, offset + 1, 2);
+		setRaw(frameBody, offset + 1, 2);
 	}
 	
 	/**
@@ -26,7 +26,7 @@ public class FixedTwoAMQPType extends FixedAMQPType
 	public String toValue()
 	{
 		String typeName = this.getEncodingType().getType().getTypeName();
-		byte[] raw = getValue();
+		byte[] raw = getRaw();
 		switch (typeName)
 		{
 			case "ushort":

@@ -19,12 +19,11 @@ public class Frame
 	private int				channel;
 	private Performative	performative;
 	private Message			message;
-	private byte[]			frameBody;
 	private byte[]			extendedHeader;
 
 	//
 
-	public Frame(int size, int doff, int type, int channel, byte[] ignored, byte[] frameBody, Performative performative,
+	public Frame(int size, int doff, int type, int channel, byte[] ignored, Performative performative,
 			Message message) throws FrameFormatException
 	{
 		this.size = size;
@@ -32,7 +31,6 @@ public class Frame
 		this.type = type;
 		this.channel = channel;
 		this.performative = performative;
-		this.frameBody = frameBody;
 		this.extendedHeader = ignored;
 		this.message = message;
 	}

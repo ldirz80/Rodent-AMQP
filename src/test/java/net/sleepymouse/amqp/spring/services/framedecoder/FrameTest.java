@@ -3,12 +3,12 @@ package net.sleepymouse.amqp.spring.services.framedecoder;
 import org.junit.*;
 
 import net.sleepymouse.amqp.spring.components.primitives.PrimitivesManager;
-import net.sleepymouse.amqp.utilities.FrameFormatException;
+import net.sleepymouse.amqp.utilities.*;
 
 public class FrameTest
 {
 
-	private final int[] testData = { //
+	private final int[] TRANSFER_FRAME = { //
 			0x00, 0x00, 0x00, 0x71, 0x02, 0x00, 0x00, 0x00, // frame header (8 bytes)
 			0x00, 0x53, 0x14, 0xc0, 0x11, 0x0b, 0x43, 0x43, // performative (22 bytes)
 			0xa0, 0x04, 0x00, 0x00, 0x00, 0x00, 0x43, 0x42, //
@@ -35,16 +35,6 @@ public class FrameTest
 	public void tearDown() throws Exception
 	{}
 
-	private byte[] generateMessage(int[] data)
-	{
-		byte[] message = new byte[data.length];
-		for (int i = 0; i < data.length; i++)
-		{
-			message[i] = (byte) data[i];
-		}
-		return message;
-	}
-
 	@Test
 	public final void testFrame()
 	{
@@ -53,7 +43,7 @@ public class FrameTest
 		pm.load();
 		frameDecoder.setPrimitivesManager(pm);
 		Frame frame;
-		byte[] message = generateMessage(testData);
+		byte[] message = NumberUtils.generateByteArray(TRANSFER_FRAME);
 		try
 		{
 			frame = frameDecoder.decode(message);
