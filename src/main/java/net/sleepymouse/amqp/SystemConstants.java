@@ -18,7 +18,7 @@ public class SystemConstants
 	//
 	public static enum LogSubSystem
 	{
-		SPRING, PRIMITIVES, NETWORK
+		SPRING, PRIMITIVES, PERFORMATIVES, NETWORK
 	}
 
 }

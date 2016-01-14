@@ -6,9 +6,10 @@ package net.sleepymouse.amqp.spring.rest;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import javax.inject.Inject;
+
 import org.junit.*;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -34,7 +35,7 @@ public class TestSpringMVC
 
 	final String					BASE_URL	= "http://localhost:8081/";
 
-	@Autowired
+	@Inject
 	private WebApplicationContext	wac;
 
 	private MockMvc					mockMvc;
