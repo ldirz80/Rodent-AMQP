@@ -7,6 +7,6 @@ https://www.amqp.org/
 
 To build:
 
-gradle test jacocoTestReport
+gradle clean test
 
 

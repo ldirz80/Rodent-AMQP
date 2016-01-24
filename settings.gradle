@@ -1,0 +1,4 @@
+rootProject.name ='Rodent-AMQP'
+
+include 'app'
+include 'bddtest'
